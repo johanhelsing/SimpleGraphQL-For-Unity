@@ -75,10 +75,7 @@ public async void QueryOrMutation()
 
     string results = await graphQL.SendAsync(
         query,
-        new Dictionary<string, object>
-        {
-            {"variable", "value"}
-        },
+        new {variable = "value"},
         null,
        "authToken",
        "Bearer"
@@ -101,10 +98,7 @@ public async void Subscribe()
 
     bool success = await graphQL.SubscribeAsync(
         query,
-        new Dictionary<string, object>
-        {
-            {"variable", "value"}
-        },
+        new {variable = "value"},
         null,
        "authToken",
        "Bearer"
@@ -151,10 +145,7 @@ public IEnumerator _CallQueryCoroutine()
     yield return new WaitForSend(
         graphQL.SendAsync(
             query,
-            new Dictionary<string, object>
-            {
-                {"variable", "value"}
-            },
+            new {variable = "value"},
         ), 
         OnComplete
     );
