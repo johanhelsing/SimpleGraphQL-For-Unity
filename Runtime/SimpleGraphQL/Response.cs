@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using UnityEngine.Scripting;
 
 namespace SimpleGraphQL
 {
@@ -14,7 +15,7 @@ namespace SimpleGraphQL
         [CanBeNull]
         public Error[] Errors { get; set; }
 
-        [JsonConstructor] // Ensures it survives code-stripping
+        [Preserve] // Ensures it survives code-stripping
         public Response()
         {
         }
@@ -34,7 +35,7 @@ namespace SimpleGraphQL
         [CanBeNull]
         public object[] Path { get; set; } // Path objects can be either integers or strings
 
-        [JsonConstructor] // Ensures it survives code-stripping
+        [Preserve] // Ensures it survives code-stripping
         public Error()
         {
         }
@@ -49,7 +50,7 @@ namespace SimpleGraphQL
         [DataMember(Name = "column")]
         public int Column { get; set; }
 
-        [JsonConstructor] // Ensures it survives code-stripping
+        [Preserve] // Ensures it survives code-stripping
         public Location()
         {
         }
