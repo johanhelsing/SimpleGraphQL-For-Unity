@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using UnityEngine.Scripting;
 
 namespace SimpleGraphQL
 {
@@ -42,6 +43,26 @@ namespace SimpleGraphQL
         }
     }
 
+    // We just need something we can serialize
+    [Preserve]
+    public class Request
+    {
+        [Preserve]
+        [DataMember(Name = "query")]
+        public string Query { get; set; }
+
+        [Preserve]
+        [DataMember(Name = "operationName")]
+        public string OperationName { get; set; }
+
+        [Preserve]
+        [DataMember(Name = "variables")]
+        public Dictionary<string, object> Variables { get; set; }
+
+        [Preserve]
+        public Request() {}
+    }
+
     [PublicAPI]
     public static class QueryExtensions
     {
@@ -50,18 +71,6 @@ namespace SimpleGraphQL
             return Encoding.UTF8.GetBytes(ToJson(query, variables));
         }
 
-        // We just need something we can serialize
-        private class Request
-        {
-            [DataMember(Name = "query")]
-            public string Query { get; set; }
-
-            [DataMember(Name = "operationName")]
-            public string OperationName { get; set; }
-
-            [DataMember(Name = "variables")]
-            public Dictionary<string, object> Variables { get; set; }
-        }
 
         public static string ToJson(this Query query, Dictionary<string, object> variables = null,
             bool prettyPrint = false)
