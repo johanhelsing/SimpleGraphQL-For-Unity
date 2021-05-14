@@ -79,9 +79,9 @@ namespace SimpleGraphQL
             (
                 new Request
                 {
-                    Query = query.Source,
-                    OperationName = query.OperationName,
-                    Variables = variables
+                    query = query.Source,
+                    operationName = query.OperationName,
+                    variables = variables
                 },
                 prettyPrint ? Formatting.Indented : Formatting.None,
                 new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}
