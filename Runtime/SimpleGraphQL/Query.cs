@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using UnityEngine.Scripting;
 
 namespace SimpleGraphQL
@@ -49,15 +50,15 @@ namespace SimpleGraphQL
     {
         [Preserve]
         [DataMember(Name = "query")]
-        public string Query { get; set; }
+        public string query { get; set; }
 
         [Preserve]
         [DataMember(Name = "operationName")]
-        public string OperationName { get; set; }
+        public string operationName { get; set; }
 
         [Preserve]
         [DataMember(Name = "variables")]
-        public Dictionary<string, object> Variables { get; set; }
+        public Dictionary<string, object> variables { get; set; }
 
         [Preserve]
         public Request() {}
@@ -70,7 +71,6 @@ namespace SimpleGraphQL
         {
             return Encoding.UTF8.GetBytes(ToJson(query, variables));
         }
-
 
         public static string ToJson(this Query query, Dictionary<string, object> variables = null,
             bool prettyPrint = false)
