@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -49,13 +50,29 @@ namespace SimpleGraphQL
             return Encoding.UTF8.GetBytes(ToJson(query, variables));
         }
 
+        // We just need something we can serialize
+        private class Request
+        {
+            [DataMember(Name = "query")]
+            public string Query { get; set; }
+
+            [DataMember(Name = "operationName")]
+            public string OperationName { get; set; }
+
+            [DataMember(Name = "variables")]
+            public Dictionary<string, object> Variables { get; set; }
+        }
+
         public static string ToJson(this Query query, Dictionary<string, object> variables = null,
             bool prettyPrint = false)
         {
             return JsonConvert.SerializeObject
-            (new
+            (
+                new Request
                 {
-                    query = query.Source, operationName = query.OperationName, variables
+                    Query = query.Source,
+                    OperationName = query.OperationName,
+                    Variables = variables
                 },
                 prettyPrint ? Formatting.Indented : Formatting.None,
                 new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}
