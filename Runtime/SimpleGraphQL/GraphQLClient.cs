@@ -111,9 +111,8 @@ namespace SimpleGraphQL
             Dictionary<string, string> headers = null,
             string authToken = null,
             string authScheme = null)
-            where TResponse : new()
         {
-            AotHelper.EnsureType<TResponse>();
+            AotHelper.Ensure(() => Debug.Log(responseTypeResolver()));
             AotHelper.EnsureType<Response<TResponse>>();
             return await Send<TResponse>(query, variables, headers, authToken, authScheme);
         }
