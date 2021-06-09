@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Utilities;
 using UnityEngine;
 
 namespace SimpleGraphQL
@@ -110,7 +111,10 @@ namespace SimpleGraphQL
             Dictionary<string, string> headers = null,
             string authToken = null,
             string authScheme = null)
+            where TResponse : new()
         {
+            AotHelper.EnsureType<TResponse>();
+            AotHelper.EnsureType<Response<TResponse>>();
             return await Send<TResponse>(query, variables, headers, authToken, authScheme);
         }
 
