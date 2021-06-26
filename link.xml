@@ -2,5 +2,10 @@
     <assembly fullname="LastAbyss.SimpleGraphQL.Runtime">
         <type fullname="SimpleGraphQL.Response*" />
         <type fullname="SimpleGraphQL.Request*" />
+
+    </assembly>
+    <assembly fullname="Newtonsoft.Json">
+        <!-- Not strictly needed, but these are quite commonly used in response types -->
+        <type fullname="Newtonsoft.Json.Serialization.*NamingStrategy" preserve="all" />
     </assembly>
 </linker>
